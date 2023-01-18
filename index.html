@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My GitHub Pages Website</title>
+  <script>
+    function displayDateTime() {
+      var currentDate = new Date();
+      var dateTime = currentDate.toLocaleString();
+      document.getElementById("dateTime").innerHTML = dateTime;
+    }
+    setInterval(displayDateTime, 1000);
+  </script>
+</head>
+<body onload="displayDateTime()">
+  <h1>Welcome to my website!</h1>
+  <p>The current date and time is: <span id="dateTime"></span></p>
+  <img id="imgur-image" src="" alt="Random Imgur Image">
+  <script>
+    // Replace YOUR_CLIENT_ID with your Imgur client ID
+    var imgurClientId = "YOUR_CLIENT_ID";
+    var imgurUrl = "https://api.imgur.com/3/gallery/random/random/";
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", imgurUrl);
+    xhr.setRequestHeader("Authorization", "Client-ID " + imgurClientId);
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        var imgurResponse = JSON.parse(xhr.responseText);
+        var imageUrl = imgurResponse.data.link;
+        document.getElementById("imgur-image").src = imageUrl;
+      }
+    };
+    xhr.send();
+  </script>
+</body>
+</html>
